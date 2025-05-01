@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente Web Externo</title>
+</head>
+<body>
+
+    <h1>CRUD - Cliente HTML/JavaScript</h1> <div>
+        <label for="id">ID:</label>
+        <input type="text" id="id"> </div>
+
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome"> </div>
+
+    <div>
+        <label for="preco">Preço:</label>
+        <input type="text" id="preco"> </div>
+
+    <div>
+        <label for="quantidade">Quantidade:</label>
+        <input type="text" id="quantidade"> </div>
+
+    <div>
+        <label for="status">Status:</label>
+        <input type="text" id="status"> </div>
+
+    <button onclick="salvar()" style="background-color: green; color: white;">Salvar</button>
+    <button onclick="atualizar()" style="background-color: blue; color: white;">Atualizar</button>
+    <button onclick="deletar()" style="background-color: red; color: white;">Deletar</button>
+    <button onclick="carregarCampos()" style="background-color: gray; color: white;">Consultar</button>
+    <button onclick="limparCampos()" style="background-color: black; color: white;">Limpar Campos</button>
+
+    <ul id="lista-produtos"></ul>
+    <p id="total-produtos"></p> <script>
+        const BASE_URL = 'http://localhost:8080/produtos'; // URL base da API
+
+        // Função para Coletar Dados do Formulário
+        function getProdutoFromForm() {
+            const nome = document.getElementById('nome').value;
+            const preco = document.getElementById('preco').value;
+            const quantidade = document.getElementById('quantidade').value;
+            const status = document.getElementById('status').value;
+            return { nome, preco: parseFloat(preco), quantidade: parseInt(quantidade), status };
+        }
+
+        async function listarTodos() {
+            try {
+                const response = await fetch(BASE_URL);
+                const produtos = await response.json();
+                const lista = document.getElementById('lista-produtos');
+                const total = document.getElementById('total-produtos');
+                lista.innerHTML = '';
+                produtos.forEach(produto => {
+                    const item = document.createElement('li');
+                    item.textContent = `ID: ${produto.id}, Nome: ${produto.nome}, Preço: ${produto.preco}, Quantidade: ${produto.quantidade}, Status: ${produto.status}`;
+                    lista.appendChild(item);
+                });
+                total.textContent = `Total de produtos: ${produtos.length}`;
+            } catch (error) {
+                console.error('Erro ao listar produtos:', error);
+                alert('Erro ao listar produtos.');
+            }
+        }
+
+        async function salvar() {
+            try {
+                const produto = getProdutoFromForm();
+                await fetch(BASE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(produto)
+                });
+                listarTodos();
+                limparCampos(); // Limpa os campos após salvar
+                alert('Produto salvo com sucesso!');
+            } catch (error) {
+                console.error('Erro ao salvar produto:', error);
+                alert('Erro ao salvar produto.');
+            }
+        }
+
+        async function atualizar() {
+            try {
+                const produto = getProdutoFromForm();
+                const id = document.getElementById('id').value;
+                await fetch(`${BASE_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(produto)
+                });
+                listarTodos();
+                limparCampos(); // Limpa os campos após atualizar
+                alert('Produto atualizado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao atualizar produto:', error);
+                alert('Erro ao atualizar produto.');
+            }
+        }
+
+        async function deletar() {
+            try {
+                const id = document.getElementById('id').value;
+                await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
+                listarTodos();
+                limparCampos(); // Limpa os campos após deletar
+                alert('Produto deletado com sucesso!');
+            } catch (error) {
+                console.error('Erro ao deletar produto:', error);
+                alert('Erro ao deletar produto.');
+            }
+        }
+
+        async function carregarCampos() {
+            const id = document.getElementById('id').value;
+            try {
+                const response = await fetch(`${BASE_URL}/${id}`);
+                const produto = await response.json();
+                document.getElementById('nome').value = produto.nome;
+                document.getElementById('preco').value = produto.preco;
+                document.getElementById('quantidade').value = produto.quantidade;
+                document.getElementById('status').value = produto.status;
+            } catch (error) {
+                console.error('Erro ao consultar produto:', error);
+                alert('Erro ao consultar produto.');
+            }
+        }
+
+        function limparCampos() {
+            document.getElementById('id').value = '';
+            document.getElementById('nome').value = '';
+            document.getElementById('preco').value = '';
+            document.getElementById('quantidade').value = '';
+            document.getElementById('status').value = '';
+        }
+
+        // Carregar a lista de produtos ao carregar a página
+        listarTodos();
+    </script>
+
+</body>
+</html>
