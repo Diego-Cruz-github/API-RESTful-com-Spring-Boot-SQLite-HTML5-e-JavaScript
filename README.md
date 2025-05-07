@@ -18,7 +18,7 @@ A aplicação expõe uma **API RESTful** robusta e segura com suporte completo a
 ---
 
 ## 🚀 Tecnologias Utilizadas
-- Java 21  
+- Java 22  
 - Spring Boot 3  
 - JPA / Hibernate (ORM)  
 - JDBC  
