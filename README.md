@@ -9,7 +9,7 @@ A aplicação expõe uma **API RESTful** robusta e segura com suporte completo a
 ## 🧠 Destaques Técnicos
 ✅ Programação Funcional com Streams, Lambdas e Imutabilidade  
 ✅ Cadastro em Massa via JSON (Bulk Insert)  
-✅ Integração com HTML5/JavaScript externo via Web Client  
+✅ Integração com HTML/JavaScript externo via Web Client  
 ✅ API RESTful documentada e testável com Postman  
 ✅ Persistência com SQLite, JPA, Hibernate e JDBC  
 ✅ Segurança com CORS e CSRF  
@@ -18,13 +18,13 @@ A aplicação expõe uma **API RESTful** robusta e segura com suporte completo a
 ---
 
 ## 🚀 Tecnologias Utilizadas
-- Java 17  
+- Java 21  
 - Spring Boot 3  
 - JPA / Hibernate (ORM)  
 - JDBC  
 - SQLite  
 - Maven  
-- HTML5  
+- HTML  
 - JavaScript (ES6+)  
 - Postman  
 - CORS / CSRF  
