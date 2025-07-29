@@ -115,5 +115,5 @@ A aplicação estará disponível em:
 ---
 
 ## 👨‍💻 Autor
-**Diego Fonte Boa Cruz**  
+**Diego Fonte**  
 📌 [LinkedIn](https://www.linkedin.com/in/diegof90)
