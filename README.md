@@ -115,5 +115,4 @@ A aplicação estará disponível em:
 ---
 
 ## 👨‍💻 Autor
-**Diego Fonte**  
-📌 [LinkedIn](https://www.linkedin.com/in/diegof90)
+**Diego Fonte** 
